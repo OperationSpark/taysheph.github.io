@@ -14,14 +14,16 @@ var _ = {};
 /** _.identity
 * Arguments:
 *   1) Any value
-* Objectives:
+* Objectives:s
 *   1) Returns <value> unchanged
 * Examples:
 *   _.identity(5) === 5
 *   _.identity({a: "b"}) === {a: "b"}
 */
 
-
+_.identity = function(value) {
+    return value;
+}
 
 
 
@@ -218,6 +220,39 @@ _.typeOf = function(value) {
 */
 
 
+_.each = function(collection, action) {
+    if(Array.isArray(collection)) {
+        for(var i = 0; i < collection.length; i++) {
+            action(collection[i], i, collection);
+        }
+    } else {
+        for (var key in collection) {
+            action(collection[key], key, collection);
+        }
+    }
+}
+
+
+
+
+_.map = function(collection, func) {
+    // declare arr set to an empty array
+    var arr = [];
+    
+    _.each(collection, function(val, i, col) {
+       var result = func(val, i, col)
+        arr.push(result)
+    });
+    
+    //return array
+    return arr;
+};
+
+
+
+
+
+
 /** _.pluck
 * Arguments:
 *   1) An array of objects
@@ -292,6 +327,36 @@ _.typeOf = function(value) {
 * Examples:
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
+
+
+_.reduce = function(array, func, seed) {
+    //check if seed exists/ not undefined
+    if (seed !== undefined) {
+    
+    //if so loop over the array
+    for (var i = 0; i < array.length; i++) {
+        //call the func function on the seed, value, index, and array
+            // re-assign seed to be the value from the function call
+        seed = func(seed, array[i], i, array);
+    }
+    
+    return seed;
+    } else {
+        //reassign seed to be the first value in the array
+        seed = array[0];
+        //loop through array beginning at the index 1
+        for (var i = 1; i < array.length; i++) {
+             //call the func function on the seed, value, index, and array
+            // re-assign seed to be the value from the function call
+          seed = func(seed, array[i], i, array); 
+        }
+       return seed;
+    }
+}
+
+
+
+
 
 
 /** _.extend
