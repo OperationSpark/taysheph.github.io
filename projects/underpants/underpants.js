@@ -328,30 +328,35 @@ _.map = function(collection, func) {
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
 
-
 _.reduce = function(array, func, seed) {
     //check if seed exists/ not undefined
     if (seed !== undefined) {
+    //if so loop through the array
+    //call the func function on seed, value, index, array
+    // reassign seed to be the value of that function call
     
-    //if so loop over the array
-    for (var i = 0; i < array.length; i++) {
-        //call the func function on the seed, value, index, and array
-            // re-assign seed to be the value from the function call
-        seed = func(seed, array[i], i, array);
-    }
-    
-    return seed;
-    } else {
-        //reassign seed to be the first value in the array
-        seed = array[0];
-        //loop through array beginning at the index 1
-        for (var i = 1; i < array.length; i++) {
-             //call the func function on the seed, value, index, and array
-            // re-assign seed to be the value from the function call
-          seed = func(seed, array[i], i, array); 
+        for (var i = 0; i < array.length; i++) {
+            seed = func(seed, array[i], i);
         }
-       return seed;
+        //return seed
+        return seed;
+    } else {
+        //if no seed given, first value in array is the seed
+        seed = array[0];
+        
+        //if so loop through the array, start at index 1
+        for (var i = 1; i < array.length; i++) {
+            //call the func function on seed, value, index, array
+        // reassign seed to be the value of that function call
+            seed = func(seed, array[i], i);
+        }
+        
+        return seed
+    
     }
+   
+    
+    
 }
 
 
