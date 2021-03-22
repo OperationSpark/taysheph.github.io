@@ -3,7 +3,7 @@
 'use strict';
 
 var customers = require('./data/customers.json');
-var _ = require('underbar');
+var _ = require("underbar");
 
 /**
  * 1. Import your lodown module using the require() method,
@@ -22,11 +22,10 @@ var _ = require('underbar');
  */
 
 var maleCount = function(array) {
-    var maleArray = _.filter(array, function(customerObj) {
-        console.log(customerObj.gender);
-        return customerObj.gender === "male";
-    });
-    return maleArray.length;
+  var males = _.filter(array, function(customerObj, i, array) {
+      return customerObj.gender === "male";
+   });
+   return males.length;
 };
 
 var femaleCount;
@@ -45,7 +44,16 @@ var friendsCount;
 
 var topThreeTags;
 
-var genderCount;
+var genderCount = function(array) {
+  return _.reduce(array, function(resultObj, customerObj) {
+    if (resultObj[customerObj.gender]) {
+      resultObj[customerObj.gender] += 1;
+    } else {
+      resultObj[customerObj.gender] = 1;
+    }
+    return resultObj;
+  }, {});
+};
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
