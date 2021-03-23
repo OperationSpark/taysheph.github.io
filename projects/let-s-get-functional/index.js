@@ -45,15 +45,37 @@ var friendsCount;
 var topThreeTags;
 
 var genderCount = function(array) {
-  return _.reduce(array, function(resultObj, customerObj) {
-    if (resultObj[customerObj.gender]) {
-      resultObj[customerObj.gender] += 1;
-    } else {
-      resultObj[customerObj.gender] = 1;
-    }
-    return resultObj;
-  }, {});
+  
+  var getCountObj = function(resultObj, customerObj) {
+    // if resultObj has the key for the object's gender
+      //if so add to that count
+      if (resultObj[customerObj.gender]) {
+        resultObj[customerObj.gender] += 1;
+        //if not add a new key value pair for that gender
+      } else {
+        resultObj[customerObj.gender] = 1;
+      }
+    return resultObj
+  }
+  
+  return _.reduce(array, getCountObj , {});
+  
+  
+  // _.reduce(array, function(resultObj, customerObj) {
+  //   // if resultObj has the key for the object's gender
+  //     //if so add to that count
+  //     if (resultObj[customerObj.gender]) {
+  //       resultObj[customerObj.gender] += 1;
+  //       //if not add a new key value pair for that gender
+  //     } else {
+  //       resultObj[customerObj.gender] = 1;
+  //     }
+  //   return resultObj
+  // }, {});
+  
 };
+
+
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
